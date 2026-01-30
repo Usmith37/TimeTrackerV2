@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet id="v2-add-employee" author="A_Kazakov">
+        <loadData tableName="employees" file="employees.csv"
+                  separator="," encoding="UTF-8" relativeToChangelogFile="true">
+            <column name="surname" type="varchar(255)"/>
+            <column name="name" type="varchar(255)"/>
+            <column name="patronymic" type="varchar(255)"/>
+            <column name="stuffId" type="int"/>
+            <column name="employeePost" type="varchar(255)"/>
+            <column name="role" type="varchar(255)"/>
+            <column name="login" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

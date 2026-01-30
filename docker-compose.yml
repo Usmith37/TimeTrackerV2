@@ -1,0 +1,105 @@
+name: TimeTrackerV2
+services:
+  postgresDb:
+    container_name: PostgresDBContainer
+    image: postgres:17.0-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres1
+      - POSTGRES_PASSWORD=postgres1
+      - POSTGRES_DB=TestDBInContainer
+
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:23.0.7
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_STRICT: false
+    volumes:
+      - './config/keycloak/import:/opt/keycloak/data/import'
+    command: start-dev --import-realm
+
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.0
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+
+
+
+
+##Раскомментировать для запуска в контейнере:
+#  employees-service:
+#    container_name: Employees
+#    build:
+#      context: ./employees-service
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8081:8081"
+#    depends_on:
+#      - postgresDb
+#    environment:
+#      - DB_URL=jdbc:postgresql://postgresDb:5432/TestDBInContainer
+#      - USER_DB=postgres1
+#      - PASSWORD_DB=postgres1
+#      - AUTH_SERVER_URL=http://keycloak:8080
+#
+#  log-entry-service:
+#    container_name: LogEntries
+#    build:
+#      context: ./log-entry-service
+#      dockerfile: Dockerfile
+##    build:
+##      context: .
+##      dockerfile: log-entry-service/Dockerfile
+#    ports:
+#      - "8082:8082"
+#    depends_on:
+#      - postgresDb
+#    environment:
+#      - DB_URL=jdbc:postgresql://postgresDb:5432/TestDBInContainer
+#      - USER_DB=postgres1
+#      - PASSWORD_DB=postgres1
+#      - EMPLOYEE_URI=http://Employees:8081
+#
+#  api-gateway:
+#    container_name: ApiGateway
+#    build:
+#      context: ./api-gateway
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8090:8090"
+#    environment:
+#      - FRONTEND_URI=http://localhost:3000
+#      - KEYCLOAK_URI=http://localhost:8080/realms/Employees_realm
+#      - EMPLOYEES_SERVICE_URI=http://Employees:8081
+#      - LOG_ENTRY_SERVICE_URI=http://LogEntries:8082
+#    extra_hosts:
+#      - "localhost:host-gateway"
+#
+#  frontend:
+#    container_name: Frontend
+#    build:
+#      context: ./time-tracker-ui
+#      dockerfile: Dockerfile
+#    ports:
+#      - "3000:80"
+

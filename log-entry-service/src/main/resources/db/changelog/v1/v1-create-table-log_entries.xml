@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet author="A_Kazakov" id="create-table-log_entries">
+        <createTable tableName="log_entries">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="start_time" type="timestamp">
+            </column>
+            <column name="end_time" type="timestamp">
+            </column>
+            <column name="keycloak_id" type="varchar(255)">
+            </column>
+            <column name="employee_id" type="bigint">
+            </column>
+            <column name="message" type="varchar(255)">
+            </column>
+            <column name="job_time" type="float">
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

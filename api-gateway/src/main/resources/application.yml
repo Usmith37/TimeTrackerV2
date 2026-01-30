@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: Api-Gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URI:http://localhost:8080/realms/Employees_realm}
+  cloud:
+    gateway:
+      routes:
+        - id: employees_service
+          uri: ${EMPLOYEES_SERVICE_URI:http://localhost:8081}
+          predicates:
+            - Path=/employees_service/**
+          filters:
+            - StripPrefix=1
+
+        - id: log_entry_service
+          uri: ${LOG_ENTRY_SERVICE_URI:http://localhost:8082}
+          predicates:
+            - Path=/log_entry_service/**
+          filters:
+            - StripPrefix=1
+
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - ${FRONTEND_URI:http://localhost:3000}
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8090
+
+frontend:
+  url: ${FRONTEND_URI:http://localhost:3000}
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+  charset:
+    console: UTF-8

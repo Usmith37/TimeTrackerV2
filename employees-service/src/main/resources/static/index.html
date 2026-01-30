@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Стартовая страница</title>
+</head>
+<body>
+<h1>Добро пожаловать на страницу приложения со списком сотрудников</h1>
+<!--<h2>Случайное число для теста:</h2>-->
+<p style="font-size: 32px;">Случайное число для теста: <span id="random-number"></span></p>
+<p style="font-size: 24px;">Страница сгенерирована: <span id="generation-time"></span></p>
+
+<script>
+    // Генерация случайного числа
+    const randomNumber = Math.floor(Math.random() * 101);
+    document.getElementById('random-number').textContent = randomNumber;
+
+    // Отображение времени генерации страницы
+    const now = new Date();
+    const timeString = now.toLocaleString('ru-RU', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    document.getElementById('generation-time').textContent = timeString;
+</script>
+
+<p><a href="http://localhost:8081/api/employees" style="font-size: 20px;">Перейти к списку сотрудников</a></p>
+<p><a href="http://localhost:8081/swagger-ui/index.html" style="font-size: 20px;">Перейти к Сваггеру</a></p>
+</body>
+</html>

@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: Mail-Sender-Service
+  mail:
+    port: 465
+#    host: smtp.rambler.ru
+#    username: test-employee1@rambler.ru
+#    password: CHANGE_PASSWORD
+    host: smtp.mail.ru
+    username: test-employee2@mail.ru
+    password: CHANGE_PASSWORD
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.starttls.enable: false
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+server:
+  port: 8083
+
+kafka:
+  bootstrap-servers: localhost:9092
+  topic:
+    need-close-entry-topic: need-close
+    need-open-entry-topic: need-open
+
+integration:
+  employee-url: ${EMPLOYEE_URI:http://localhost:8081}
+
+logging:
+  charset:
+    console: UTF-8
+
+
+
+#logging:
+#  level:
+#    root: info
+#    org.example.backendapp: trace
+##  file:
+##    name: myLogs
+#
+#server:
+#  port: ${PORT:8080}
+#
+#frontend:
+#  url: ${FRONTEND_URL:http://localhost:3000}

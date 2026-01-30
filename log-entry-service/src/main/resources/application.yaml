@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: Log-Entry-Service
+
+  # Datasource configuration
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/TestDBInContainer}
+    username: ${USER_DB:postgres1}
+    password: ${PASSWORD_DB:postgres1}
+    driver-class-name: org.postgresql.Driver
+
+    # Hikari connection pool settings
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+
+  # JPA configuration
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+
+  # Liquibase configuration
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+
+  springdoc:
+    swagger-ui:
+      url: /v3/api-docs
+
+server:
+  port: 8082
+
+integration:
+  employee-url: ${EMPLOYEE_URI:http://localhost:8081}
+
+kafka:
+  bootstrap-servers: localhost:9092
+  topic:
+    need-close-entry-topic: need-close
+    need-open-entry-topic: need-open
+
+scheduler:
+  need-close-cron: 0/10 * * * * *
+  need-open-cron: 0/10 * * * * *
+
+logging:
+  charset:
+    console: UTF-8

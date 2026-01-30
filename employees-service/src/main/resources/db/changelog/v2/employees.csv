@@ -1,0 +1,6 @@
+"surname","name","patronymic","stuff_id","employee_post","role","login","keycloak_id"
+Александров,Александр,Александрович,1,Администратор,ROLE_ADMIN,usera,"7c507520-5308-4fec-a4e2-ae8415194e63"
+Иванов,Иван,Иванович,2,Инженер,ROLE_USER,user2,"62f10152-b2b2-43d8-8c53-b90bbf97de42"
+Петров,Петр,Петрович,3,Мастер,ROLE_USER,user3,"23c1f9e3-82b3-4394-b0a7-e5173dba8072"
+Сидоров,Иван,Петрович,4,Мастер,ROLE_USER,user4,"4597261f-b833-4bee-b6e8-181f627efae1"
+

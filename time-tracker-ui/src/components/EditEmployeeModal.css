@@ -1,0 +1,226 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Высокий z-index чтобы было поверх всего */
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 500px;
+    max-width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #95a5a6;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    color: #e74c3c;
+    background-color: #f9f9f9;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #34495e;
+    font-size: 14px;
+}
+
+.form-group input {
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/*.modal-actions {*/
+/*    display: flex;*/
+/*    justify-content: flex-end;*/
+/*    gap: 15px;*/
+/*    margin-top: 30px;*/
+/*    padding-top: 20px;*/
+/*    border-top: 2px solid #f0f0f0;*/
+/*}*/
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 20px;
+}
+
+.left-actions {
+    flex: 1;
+}
+
+.right-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.delete-button {
+    padding: 12px 24px;
+    border: 2px solid #e74c3c;
+    border-radius: 8px;
+    background: white;
+    color: #e74c3c;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.delete-button:hover {
+    background: #e74c3c;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.delete-button:active {
+    transform: translateY(0);
+}
+
+.cancel-button {
+    padding: 12px 24px;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    background: white;
+    color: #7f8c8d;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.cancel-button:hover {
+    background: #f8f9fa;
+    border-color: #95a5a6;
+    color: #2c3e50;
+}
+
+.save-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: #27ae60;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.save-button:hover:not(:disabled) {
+    background: #229954;
+    transform: translateY(-1px);
+}
+
+.save-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+/*.save-button:disabled {*/
+/*    background-color: #ccc;*/
+/*    cursor: not-allowed;*/
+/*    opacity: 0.6;*/
+/*}*/
+
+.save-button--disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.save-button--disabled:hover {
+    background-color: #ccc;
+    transform: none;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    .modal-content {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .modal-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .cancel-button,
+    .save-button {
+        width: 100%;
+    }
+}

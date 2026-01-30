@@ -1,0 +1,144 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+.navbar {
+    background-color: #007bff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    flex-wrap: wrap; /* Разрешаем перенос элементов при необходимости */
+}
+.navbar button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+.navbar-user {
+    color: white;
+    /*margin-right: auto; !* Прижимает навигационные ссылки к центру *!*/
+    /*padding-left: 20px;*/
+    margin-right: 20px;
+    white-space: nowrap; /* Запрещаем перенос в информации о пользователе */
+}
+
+.navbar-links {
+    display: flex;
+    gap: 10px;
+    /*margin: 0 auto; !* Центрирует навигационные ссылки *!*/
+    /*flex-wrap: nowrap; !* Запрещаем перенос кнопок *!*/
+    /*white-space: nowrap; !* Запрещаем перенос текста внутри контейнера *!*/
+    flex: 1; /* Занимает доступное пространство */
+    justify-content: center;
+    margin: 0 20px;
+}
+
+.navbar button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.navbar-logout {
+    margin-left: auto; /* Прижимает к правому краю */
+    padding-right: 20px;
+}
+.navbar-links button {
+    white-space: normal; /* Разрешаем перенос текста внутри кнопок */
+    word-break: break-word; /* Перенос по словам */
+    text-align: center; /* Выравнивание текста */
+    min-width: 100px; /* Минимальная ширина кнопки */
+    height: auto; /* Автоматическая высота */
+    padding: 8px 12px; /* Отступы внутри кнопок */
+}
+
+.content {
+    text-align: center;
+    margin-top: 50px;
+}
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #007bff;
+    color: white;
+}
+/*th:first-child, td:first-child {*/
+/*    width: 25%; !* Для первого столбца *!*/
+/*}*/
+/*th:nth-child(2), td:nth-child(2) {*/
+/*    width: 20%; !* Для второго столбца *!*/
+/*}*/
+/*th:nth-child(3), td:nth-child(3) {*/
+/*    width: 25%; !* Для третьего столбца *!*/
+/*}*/
+/*th:nth-child(4), td:nth-child(4) {*/
+/*    width: 10%; !* Для четвертого столбца *!*/
+/*}*/
+/*th:nth-child(5), td:nth-child(5) {*/
+/*    width: 20%; !* Для пятого столбца *!*/
+/*}*/
+.export-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #28a745; /* Зеленый цвет для кнопки */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.export-button:hover {
+    background-color: #218838; /* Темнее при наведении */
+}
+
+/* Для строки с фильтрами */
+.filter-row td {
+    padding: 0;
+    background: #f5f5f5;
+}
+
+/* Для полей ввода фильтров */
+.filter-row input {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: calc(100% - 2px); /* страховка */
+    padding: 4px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+/* Чтобы заголовки и фильтры визуально разделялись */
+thead tr:first-child th {
+    border-bottom: none;
+}
+
+.edit-button {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+    background-color: #0069d9;
+}

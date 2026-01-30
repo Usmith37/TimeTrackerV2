@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>time-tracker-v2</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>time-tracker-v2</name>
+    <description>Time tracking multi-module application</description>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.5</version>
+        <relativePath/>
+    </parent>
+    <properties>
+        <java.version>23</java.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
+        <lombok.version>1.18.38</lombok.version>
+        <springdoc.version>2.8.6</springdoc.version>
+        <liquibase.version>4.31.1</liquibase.version>
+        <postgresql.version>42.7.5</postgresql.version>
+    </properties>
+    <modules>
+        <module>employees-service</module>
+        <module>log-entry-service</module>
+        <module>api-gateway</module>
+        <module>mail-sender</module>
+    </modules>
+</project>
