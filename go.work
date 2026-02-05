@@ -1,0 +1,8 @@
+go 1.25.6
+
+use (
+    ./log_entry_service
+    ./employee_service
+    ./mail_sender_service
+    ./logger
+)
