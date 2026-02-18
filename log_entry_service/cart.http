@@ -1,0 +1,18 @@
+### getAll
+GET http://localhost:8082/api/log_entries
+Content-Type: application/json
+
+{
+  "user_id": 31337
+}
+
+
+### expected {} 200 OK
+POST http://localhost:8082/user/31337/cart/773297411
+Content-Type: application/json
+
+{
+  "count": 10
+}
+
+
