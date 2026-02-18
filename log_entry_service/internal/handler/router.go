@@ -1,13 +1,12 @@
 package handler
 
 import (
-	"net/http"
+	"github.com/gorilla/mux"
 )
 
-type LogEntryHandler interface {
-	GetAll(w http.ResponseWriter, r *http.Request)
-}
-
-func RegisterRoutes(mux *http.ServeMux, logEntryHandler LogEntryHandler) {
-	mux.HandleFunc("GET /api/log_entries", logEntryHandler.GetAll)
+func RegisterRoutes(r *mux.Router, h *handler) {
+	r.HandleFunc("/api/log_entries", h.GetAll).Methods("GET")
+	r.HandleFunc("/api/log_entries/{id}", h.GetByKeycloakId).Methods("GET")
+	r.HandleFunc("/api/log_entries/start", h.StartLogEntry).Methods("POST")
+	r.HandleFunc("/api/log_entries/end", h.EndLogEntry).Methods("PUT")
 }

@@ -8,26 +8,26 @@ import (
 	"github.com/Usmith37/TimeTrackerV2/log_entry_service/config"
 	"github.com/Usmith37/TimeTrackerV2/log_entry_service/db"
 	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/handler"
+	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/integration"
 	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/repository"
 	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/service"
 	"github.com/Usmith37/TimeTrackerV2/logger"
+	"github.com/gorilla/mux"
 )
 
 func main() {
 	dbConn := db.ConnectDB()
-	repo := repository.NewLogEntryRepository(dbConn)
-	svc := service.NewLogEntryService(repo)
+	repo := repository.NewRepository(dbConn)
+	client := integration.NewEmployeesClient()
+	svc := service.NewService(repo, client)
 	h := handler.NewHandler(svc)
+	r := mux.NewRouter()
+	handler.RegisterRoutes(r, h)
+	loggedMux := logger.Middleware(r)
 
-	mux := http.NewServeMux()
-	handler.RegisterRoutes(mux, h)
-
-	loggedMux := logger.Middleware(mux)
-
+	// Http Server
 	addr := ":" + config.Port
-
 	log.Println("The server is running at http://localhost:" + config.Port)
-
 	server := &http.Server{
 		Addr:         addr,
 		Handler:      loggedMux,

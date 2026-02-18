@@ -2,17 +2,25 @@
 GET http://localhost:8082/api/log_entries
 Content-Type: application/json
 
-{
-  "user_id": 31337
-}
+### getGetByEmployeeId
+GET http://localhost:8082/api/log_entries/62f10152-b2b2-43d8-8c53-b90bbf97de42
+Content-Type: application/json
 
-
-### expected {} 200 OK
-POST http://localhost:8082/user/31337/cart/773297411
+### Start
+POST http://localhost:8082/api/log_entries/start
 Content-Type: application/json
 
 {
-  "count": 10
+  "keycloakId": "23c1f9e3-82b3-4394-b0a7-e5173dba8072"
+}
+
+### End
+PUT http://localhost:8082/api/log_entries/end
+Content-Type: application/json
+
+{
+  "keycloakId": "23c1f9e3-82b3-4394-b0a7-e5173dba8072",
+  "message": "Смена закончена"
 }
 
 

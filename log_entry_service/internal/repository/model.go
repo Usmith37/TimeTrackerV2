@@ -1,13 +1,13 @@
-package model
+package repository
 
 import "time"
 
 type LogEntry struct {
-	ID         int64
-	KeycloakID string
+	Id         int64
+	KeycloakId string
 	StartTime  time.Time
 	EndTime    *time.Time
-	EmployeeID int64
-	Message    string
+	EmployeeId int64
+	Message    *string
 	JobTime    int64
 }
