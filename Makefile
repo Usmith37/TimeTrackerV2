@@ -1,4 +1,4 @@
-# Для запуска локального
+# Для локального запуска
 migrate-all:
 	$(MAKE) -C employee_service migrate
 	$(MAKE) -C log_entry_service migrate

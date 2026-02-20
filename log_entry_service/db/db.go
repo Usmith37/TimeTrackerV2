@@ -1,15 +1,14 @@
 package db
 
 import (
+	cf "TimeTrackerV3/log_entry_service/config"
 	"database/sql"
 	"fmt"
-	"log"
-
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/config"
 	_ "github.com/lib/pq"
+	"log"
 )
 
-func ConnectDB() *sql.DB {
+func ConnectDB(config cf.Config) *sql.DB {
 	psqlInfo := fmt.Sprintf(
 		"host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		config.DBHost, config.DBPort, config.DBUser, config.DBPassword, config.DBName,

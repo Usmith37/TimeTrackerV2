@@ -5,8 +5,8 @@ import (
 	"errors"
 	"net/http"
 
-	errs "github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/errors"
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/repository"
+	errs "TimeTrackerV3/log_entry_service/internal/errors"
+	"TimeTrackerV3/log_entry_service/internal/repository"
 	"github.com/gorilla/mux"
 )
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/errors"
+	"TimeTrackerV3/log_entry_service/internal/errors"
 )
 
 func (s *Service) EndLogEntry(keycloakId, message string) error {

@@ -5,18 +5,20 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/config"
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/db"
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/handler"
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/integration"
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/repository"
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/service"
-	"github.com/Usmith37/TimeTrackerV3/logger"
+	"TimeTrackerV3/log_entry_service/config"
+	"TimeTrackerV3/log_entry_service/db"
+	"TimeTrackerV3/log_entry_service/internal/handler"
+	"TimeTrackerV3/log_entry_service/internal/integration"
+	"TimeTrackerV3/log_entry_service/internal/logger"
+	"TimeTrackerV3/log_entry_service/internal/repository"
+	"TimeTrackerV3/log_entry_service/internal/service"
+
 	"github.com/gorilla/mux"
 )
 
 func main() {
-	dbConn := db.ConnectDB()
+	config := config.Load()
+	dbConn := db.ConnectDB(config)
 	repo := repository.NewRepository(dbConn)
 	client := integration.NewEmployeesClient()
 	svc := service.NewService(repo, client)

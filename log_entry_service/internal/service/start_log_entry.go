@@ -3,8 +3,8 @@ package service
 import (
 	"time"
 
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/errors"
-	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/repository"
+	"TimeTrackerV3/log_entry_service/internal/errors"
+	"TimeTrackerV3/log_entry_service/internal/repository"
 )
 
 func (s *Service) StartLogEntry(keycloakId string) (int64, error) {

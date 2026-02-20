@@ -1,6 +1,6 @@
 package handler
 
-import "github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/repository"
+import "TimeTrackerV3/log_entry_service/internal/repository"
 
 type StartRequest struct {
 	KeycloakId string `json:"keycloakId"`

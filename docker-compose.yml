@@ -1,0 +1,155 @@
+name: TimeTrackerV3
+services:
+  postgresDb:
+    container_name: postgres
+    image: postgres:17.0-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres1
+      - POSTGRES_PASSWORD=postgres1
+      - POSTGRES_DB=TestDBInContainer
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres1 -d TestDBInContainer" ]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+
+  migrator:
+    image: golang:1.26-alpine
+    depends_on:
+      postgresDb:
+        condition: service_healthy
+
+    environment:
+      - GOOSE_DRIVER=postgres
+      - GOOSE_DBSTRING=host=postgres port=5432 user=postgres1 password=postgres1 dbname=TestDBInContainer sslmode=disable
+
+    volumes:
+      - ./log_entry_service/migrations:/migrations
+
+    command: >
+      sh -c "
+        go install github.com/pressly/goose/v3/cmd/goose@latest &&
+        goose -dir /migrations up
+      "
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:23.0.7
+    ports:
+      - "8080:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_STRICT: false
+    volumes:
+      - './config/keycloak/import:/opt/keycloak/data/import'
+    command: start-dev --import-realm
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.1
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:v0.7.2
+    ports:
+      - "8092:8080"
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+  frontend:
+    container_name: Frontend
+    build:
+      context: ./time-tracker-ui
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+
+  log-entry-service:
+    container_name: LogEntries
+    build:
+      context: ./log_entry_service
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - migrator
+    environment:
+      - APP_PORT=8082
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres1
+      - DB_PASSWORD=postgres1
+      - DB_NAME=TestDBInContainer
+
+##Раскомментировать для запуска в контейнере:
+#  employees-service:
+#    container_name: Employees
+#    build:
+#      context: ./employees-service
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8081:8081"
+#    depends_on:
+#      - postgresDb
+#    environment:
+#      - DB_URL=jdbc:postgresql://postgresDb:5432/TestDBInContainer
+#      - USER_DB=postgres1
+#      - PASSWORD_DB=postgres1
+#      - AUTH_SERVER_URL=http://keycloak:8080
+#
+#  log-entry-service:
+#    container_name: LogEntries
+#    build:
+#      context: ./log-entry-service
+#      dockerfile: Dockerfile
+##    build:
+##      context: .
+##      dockerfile: log-entry-service/Dockerfile
+#    ports:
+#      - "8082:8082"
+#    depends_on:
+#      - postgresDb
+#    environment:
+#      - DB_URL=jdbc:postgresql://postgresDb:5432/TestDBInContainer
+#      - USER_DB=postgres1
+#      - PASSWORD_DB=postgres1
+#      - EMPLOYEE_URI=http://Employees:8081
+#
+#  api-gateway:
+#    container_name: ApiGateway
+#    build:
+#      context: ./api-gateway
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8090:8090"
+#    environment:
+#      - FRONTEND_URI=http://localhost:3000
+#      - KEYCLOAK_URI=http://localhost:8080/realms/Employees_realm
+#      - EMPLOYEES_SERVICE_URI=http://Employees:8081
+#      - LOG_ENTRY_SERVICE_URI=http://LogEntries:8082
+#    extra_hosts:
+#      - "localhost:host-gateway"
+#
+
+
