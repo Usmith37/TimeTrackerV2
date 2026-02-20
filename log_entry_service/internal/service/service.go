@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/integration"
-	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/repository"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/integration"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/repository"
 )
 
 type Repository interface {

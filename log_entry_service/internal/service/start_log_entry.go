@@ -3,7 +3,8 @@ package service
 import (
 	"time"
 
-	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/repository"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/errors"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/repository"
 )
 
 func (s *Service) StartLogEntry(keycloakId string) (int64, error) {
@@ -11,7 +12,7 @@ func (s *Service) StartLogEntry(keycloakId string) (int64, error) {
 	started := s.repo.GetStarted(keycloakId)
 
 	if len(started) > 0 {
-		return 0, ErrShiftAlreadyStarted
+		return 0, errors.ErrShiftAlreadyStarted
 	}
 	employeeDto, err := s.employeesClient.GetEmployeeById(keycloakId)
 	if err != nil {

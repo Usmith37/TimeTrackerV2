@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Usmith37/TimeTrackerV2/log_entry_service/config"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/config"
 	_ "github.com/lib/pq"
 )
 

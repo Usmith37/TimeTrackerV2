@@ -3,12 +3,14 @@ package service
 import (
 	"fmt"
 	"time"
+
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/errors"
 )
 
 func (s *Service) EndLogEntry(keycloakId, message string) error {
 	started := s.repo.GetStarted(keycloakId)
 	if len(started) == 0 {
-		return ErrNoStartedShift
+		return errors.ErrNoStartedShift
 	}
 
 	entry := started[0]

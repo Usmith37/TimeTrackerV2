@@ -5,13 +5,13 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Usmith37/TimeTrackerV2/log_entry_service/config"
-	"github.com/Usmith37/TimeTrackerV2/log_entry_service/db"
-	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/handler"
-	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/integration"
-	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/repository"
-	"github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/service"
-	"github.com/Usmith37/TimeTrackerV2/logger"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/config"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/db"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/handler"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/integration"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/repository"
+	"github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/service"
+	"github.com/Usmith37/TimeTrackerV3/logger"
 	"github.com/gorilla/mux"
 )
 

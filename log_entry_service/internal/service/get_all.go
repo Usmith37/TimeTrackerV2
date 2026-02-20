@@ -1,6 +1,6 @@
 package service
 
-import "github.com/Usmith37/TimeTrackerV2/log_entry_service/internal/repository"
+import "github.com/Usmith37/TimeTrackerV3/log_entry_service/internal/repository"
 
 func (s *Service) GetAll() []repository.LogEntry {
 	return s.repo.GetAll()

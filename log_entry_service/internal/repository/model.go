@@ -3,11 +3,11 @@ package repository
 import "time"
 
 type LogEntry struct {
-	Id         int64
-	KeycloakId string
-	StartTime  time.Time
-	EndTime    *time.Time
-	EmployeeId int64
-	Message    *string
-	JobTime    int64
+	Id         int64      `json:"id"`
+	KeycloakId string     `json:"keycloakId"`
+	StartTime  time.Time  `json:"startTime"`
+	EndTime    *time.Time `json:"endTime"`
+	EmployeeId int64      `json:"employeeId"`
+	Message    *string    `json:"message"`
+	JobTime    int64      `json:"jobTime"`
 }

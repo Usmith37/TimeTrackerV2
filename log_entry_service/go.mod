@@ -1,4 +1,4 @@
-module github.com/Usmith37/TimeTrackerV2/log_entry_service
+module github.com/Usmith37/TimeTrackerV3/log_entry_service
 
 go 1.26.0
 
