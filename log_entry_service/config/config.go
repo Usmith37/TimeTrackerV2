@@ -5,7 +5,7 @@ const (
 
 	DBHost     = "localhost"
 	DBPort     = 5432
-	DBUser     = "postgres"
-	DBPassword = "postgres"
+	DBUser     = "postgres1"
+	DBPassword = "postgres1"
 	DBName     = "TestDBInContainer"
 )

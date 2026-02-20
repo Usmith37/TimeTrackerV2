@@ -1,4 +1,4 @@
-name: TimeTrackerV2
+name: TimeTrackerV3
 services:
   postgresDb:
     container_name: postgres
@@ -6,8 +6,8 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres1
+      - POSTGRES_PASSWORD=postgres1
       - POSTGRES_DB=TestDBInContainer
 
   keycloak:
@@ -52,6 +52,14 @@ services:
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+  frontend:
+    container_name: Frontend
+    build:
+      context: ./time-tracker-ui
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
 
 ##Раскомментировать для запуска в контейнере:
 #  employees-service:
@@ -102,11 +110,5 @@ services:
 #    extra_hosts:
 #      - "localhost:host-gateway"
 #
-#  frontend:
-#    container_name: Frontend
-#    build:
-#      context: ./time-tracker-ui
-#      dockerfile: Dockerfile
-#    ports:
-#      - "3000:80"
+
 
